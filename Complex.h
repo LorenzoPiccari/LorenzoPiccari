@@ -1,6 +1,6 @@
 //header file of class
-#ifndef Complex.h
-#define Complex.h
+#ifndef Complex_h
+#define Complex_h
 //remember #endif
 
 class Complex {
@@ -14,11 +14,17 @@ class Complex {
 
   //getters
   double re() const  {return Re_;}
-  double im() cons  rn Im_;}
+  double im() const  {return Im_;}
 
   //setters
   void setRe(double Re) {Re_ = Re;}
-  void setIm(double Im) {Im_ = Im;} 
+  void setIm(double Im) {Im_ = Im;}
+
+  //function that compute the magnitude of the complex number
+  double mag();
+
+  //function that computes the phase of the complex number
+  double phase();
   
 
  
@@ -27,6 +33,6 @@ class Complex {
   double Im_;
 
 
-}
+};
 
- #endif
+#endif
