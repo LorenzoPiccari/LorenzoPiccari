@@ -53,5 +53,5 @@ double Complex::phase() {
 }// closing the implementation of phase() 
 
 
-  
-  
+//implementing +
+Complex Complex::operator+(const Complex& comp) const;

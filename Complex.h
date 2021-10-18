@@ -25,6 +25,9 @@ class Complex {
 
   //function that computes the phase of the complex number
   double phase();
+
+  //+ operator
+  Complex operator+(const Complex& comp) const;
   
 
  
