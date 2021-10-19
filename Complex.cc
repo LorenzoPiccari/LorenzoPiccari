@@ -9,8 +9,6 @@
 #include <iostream>
 #include <cmath>
 
-#define PI 3.14159265
-
 //constructors
 Complex::Complex() {
   Re_ = 0.;
@@ -41,36 +39,22 @@ double Complex::mag() const {
 double Complex::phase() const {
   
   //I have distinguish the different cases for the definition of the phase
+  //Every case that I've not included in these following statement is already included in the definition of the function "atan" di <cmath>
    
   if(Re_ < 0. && Im_ >= 0.) {
-    double phi = atan(Im_/Re_) + PI;
-    return phi*180/PI;
+    double phi = atan(Im_/Re_) + M_PI;
+    return phi*180/M_PI;
       
   }
 
   else if(Re_ < 0. && Im_ < 0.) {
-    double phi = atan(Im_/Re_) - PI;
-    return phi*180/PI;
-  }
-
-  else if (Re_== 0. && Im_ < 0.) {
-      double phi = -PI/2;
-      return phi*180/PI;
-    }
-    
-  else if (Re_== 0. && Im_ > 0.) {
-      double phi = PI/2;
-      return phi*180/PI;
-    }
-    
-  else if(Re_== 0. && Im_ == 0.) {
-    double phi = 0.;  //Here the phase is randomly put to 0, even if in the case it should be not defined, the in the main we will put an if with a cout that tells that in the case the phase is not defined
-     return phi*180/PI;
+    double phi = atan(Im_/Re_) - M_PI;
+    return phi*180/M_PI;
   }
     
   else {
       double phi = atan(Im_/Re_);
-      return phi*180/PI;
+      return phi*180/M_PI;
   }
 
 }// closing the implementation of phase()
@@ -132,5 +116,4 @@ Complex Complex::operator/(const Complex& comp) const {
     return Complex(Re,Im);
     
 }//closing the implementation of operator/
-
 
