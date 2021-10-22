@@ -21,6 +21,8 @@ class Complex {
     //destructor
     ~Complex();
 
+    //-----------------------------------------------------------------------
+    
     //getters
     double re() const  {return Re_;}
     double im() const  {return Im_;}
@@ -29,30 +31,76 @@ class Complex {
     void setRe(double Re) {Re_ = Re;}
     void setIm(double Im) {Im_ = Im;}
 
+    //-----------------------------------------------------------------------
+    
     //function that compute the magnitude of the complex number
     double mag() const;
 
     //function that computes the phase of the complex number
     double phase() const;
+    
+    //-----------------------------------------------------------------------
 
-    //+ operator
+    //operator+ (Complex+Complex)
     Complex operator+(const Complex& comp) const;
     
-    //- operator
-    Complex operator-(const Complex& comp) const;
-      
+    //operator+ (Complex+double)
+    Complex operator+(const double& doub) const;
     
+    //-----------------------------------------------------------------------
+    
+    //operator- (Complex-double)
+    Complex operator-(const Complex& comp) const;
+    
+    //operator- (Complex-double)
+    Complex operator-(const double& doub) const;
+    
+    //-----------------------------------------------------------------------
+      
     //* operator (Complex*Complex)
     Complex operator*(const Complex& comp) const;
     
-    //*operatori (Complex*Double)
+    //* operator (Complex*Double)
     Complex operator*(const double& comp) const;
+    
+    //-----------------------------------------------------------------------
   
-    // / operator
+    // / operator (Complex/Complex)
     Complex operator/(const Complex& comp) const;
+    
+    // / operator (Complex/Double)
+    Complex operator/(const double& comp) const;
+    
+    //-----------------------------------------------------------------------
     
     // = operator
     const Complex& operator=(const Complex& comp);
+    
+    //-----------------------------------------------------------------------
+    
+    // += operator
+    
+    const Complex& operator+=(const Complex& comp);
+    
+    //-----------------------------------------------------------------------
+    
+    // -= operator
+    
+    const Complex& operator-=(const Complex& comp);
+    
+    //-----------------------------------------------------------------------
+    
+    // *= operator
+    
+    const Complex& operator*=(const Complex& comp);
+    
+    //-----------------------------------------------------------------------
+    
+    // /= operator
+    
+    const Complex& operator/=(const Complex& comp);
+    
+    //-----------------------------------------------------------------------
     
 
  private:
@@ -60,9 +108,13 @@ class Complex {
     double Im_;
 
 
-};
+}; //closing the class Complex
 
 //Global function used to define the product double*Complex
 Complex operator*(const double& doub, const Complex& comp);
+
+//Global function used to define the product double*Complex
+Complex operator/(const double& doub, const Complex& comp);
+
 
 #endif

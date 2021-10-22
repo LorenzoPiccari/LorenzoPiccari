@@ -63,9 +63,9 @@ double Complex::phase() const {
 
 }// closing the implementation of phase()
 
+//-----------------------------------------------------------------------
 
-
-//implementing operator+
+//implementing operator+ (Complex+Complex)
 Complex Complex::operator+(const Complex& comp) const {
     
     //sum of the real parts
@@ -77,8 +77,23 @@ Complex Complex::operator+(const Complex& comp) const {
     //result of the sum
     return Complex(Re,Im);
     
-}//closing the implementation of operator+
+}//closing the implementation of operator+ (Complex+Complex)
 
+//implementing operator+ (Complex+double)
+Complex Complex::operator+(const double& doub) const {
+    
+    //sum of the real parts
+    double Re = Re_ + doub;
+    
+    //sum of the imaginary parts
+    double Im = Im_;
+    
+    //result of the sum
+    return Complex(Re,Im);
+    
+}//closing the implementation of operator+ (Complex+double)
+
+//-----------------------------------------------------------------------
 
 //implementing operator-
 Complex Complex::operator-(const Complex& comp) const {
@@ -89,11 +104,26 @@ Complex Complex::operator-(const Complex& comp) const {
     //subtraction of the imaginary parts
     double Im = Im_ - comp.Im_;
     
-    //result of the sum
+    //result of the subtraction
     return Complex(Re,Im);
     
-}//closing the implementation of operator-
+}//closing the implementation of operator- (Complex+Complex)
 
+//implementing operator-
+Complex Complex::operator-(const double& doub) const {
+    
+    //subtraction of the real parts
+    double Re = Re_ - doub;
+    
+    //subtraction of the imaginary parts
+    double Im = Im_;
+    
+    //result of the subtraction
+    return Complex(Re,Im);
+    
+}//closing the implementation of operator- (Complex+double)
+
+//-----------------------------------------------------------------------
 
 //implementing operator* (Complex*Complex)
 Complex Complex::operator*(const Complex& comp) const {
@@ -123,21 +153,37 @@ Complex Complex::operator*(const double& comp) const{
     
 }//closing the implementation of operator* (Complex * double)
 
+//-----------------------------------------------------------------------
 
-//implementing operator/
+//implementing operator/ (Complex/Complex)
 Complex Complex::operator/(const Complex& comp) const {
     
     //Real part of the ratio
-    double Re = (Re_*comp.Re_ + Im_*comp.Im_)/comp.mag();
+    double Re = (Re_*comp.Re_ + Im_*comp.Im_)/pow(comp.mag(),2);
     
     //Imaginary part of the ratio
-    double Im = (Im_*comp.Re_-Re_*comp.Im_)/comp.mag();
+    double Im = (Im_*comp.Re_ - Re_*comp.Im_)/pow(comp.mag(),2);
     
     //result of the ratio
     return Complex(Re,Im);
     
 }//closing the implementation of operator/
 
+//implementing operator/ (Complex/double)
+Complex Complex::operator/(const double& doub) const {
+    
+    //Real part of the ratio
+    double Re = (Re_ * doub)/pow(doub,2);
+    
+    //Imaginary part of the ratio
+    double Im = (Im_ *doub)/pow(doub,2);
+    
+    //result of the ratio
+    return Complex(Re,Im);
+    
+}//closing the implementation of operator/ (Complex/double)
+
+//-----------------------------------------------------------------------
 
 //Implementing operator =
 const Complex& Complex::operator=(const Complex& comp){
@@ -148,6 +194,77 @@ const Complex& Complex::operator=(const Complex& comp){
     return *this;
 }//closing the implementation of operator =
 
+//-----------------------------------------------------------------------
+
+//Implementing operator +=, REMEMBER: C += A --> C = C + A
+const Complex& Complex::operator+=(const Complex& comp){
+    
+    Re_ = Re_ + comp.Re_;
+    Im_ = Im_ + comp.Im_;
+    
+    return *this;
+}//closing the implementation of operator +=
+
+//-----------------------------------------------------------------------
+
+//Implementing operator -=, REMEMBER: C += A --> C = C - A
+const Complex& Complex::operator-=(const Complex& comp){
+    
+    Re_ = Re_ - comp.Re_;
+    Im_ = Im_ - comp.Im_;
+    
+    return *this;
+}//closing the implementation of operator -=
+
+//-----------------------------------------------------------------------
+
+//Implementing operator *=, REMEMBER: C += A --> C = C * A
+const Complex& Complex::operator*=(const Complex& comp){
+    
+    Re_ = Re_*comp.Re_ - Im_*comp.Im_;
+    Im_ = Im_*comp.Re_ + Re_*comp.Im_;
+    
+    return *this;
+}//closing the implementation of operator *=
+
+//-----------------------------------------------------------------------
+
+//Implementing operator /=, REMEMBER: C += A --> C = C / A
+const Complex& Complex::operator/=(const Complex& comp){
+    
+    Re_ = (Re_*comp.Re_ + Im_*comp.Im_)/pow(comp.mag(),2);
+    Im_ = (Im_*comp.Re_ - Re_*comp.Im_)/pow(comp.mag(),2);
+    
+    return *this;
+}//closing the implementation of operator /=
+
+//-----------------------------------------------------------------------
+
+//Global function used to define the product double+Complex
+Complex operator+(const double& doub, const Complex& comp)  {
+    
+    return comp.operator+(doub);
+    
+}//Closing the Global function for +
+
+//-----------------------------------------------------------------------
+
+//Global function used to define the product double*Complex
+Complex operator-(const double& doub, const Complex& comp)  {
+    
+    //subtraction of the real parts
+    double Re = doub - comp.re();
+    
+    //subtraction of the imaginary parts
+    double Im = comp.im();
+    
+    //result of the subtraction
+    return Complex(Re,Im);
+    
+    
+}//Closing the Global function for -
+
+//-----------------------------------------------------------------------
 
 //Global function used to define the product double*Complex
 Complex operator*(const double& doub, const Complex& comp)  {
@@ -155,3 +272,20 @@ Complex operator*(const double& doub, const Complex& comp)  {
     return comp.operator*(doub);
     
 }//Closing the Global function for *
+
+//-----------------------------------------------------------------------
+
+//Global function used to define the product double/Complex
+Complex operator/(const double& doub, const Complex& comp)  {
+    
+    //Real part of the ratio
+    double Re = (comp.re() * doub)/pow(comp.mag(),2);
+    
+    //Imaginary part of the ratio
+    double Im = (-comp.im()*doub)/pow(comp.mag(),2);
+    
+    //result of the ratio
+    return Complex(Re,Im);
+    
+}//Closing the Global function for /
+    
