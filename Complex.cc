@@ -5,24 +5,28 @@
 //  Created by Lorenzo Piccari on 18/10/21.
 //
 //implementation file of class Complex
-#include "Complex.h"
+#include "Complex.hpp"
 #include <iostream>
 #include <cmath>
 
 //constructors
 Complex::Complex() {
-  Re_ = 0.;
-  Im_ = 0.;
+    Re_ = 0.;
+    Im_ = 0.;
 }
+//destructor
+Complex::~Complex() {
+    std::cout<<"Destroying the Complex object";
+} //I have implemented the destructor with this cout so we can see where it is used at the execution time
 
 Complex::Complex(double Re, double Im) {
-  Re_ = Re;
-  Im_ = Im;
+    Re_ = Re;
+    Im_ = Im;
 }
 
 Complex::Complex(const Complex& complex) {
-  Re_  = complex.Re_;
-  Im_  = complex.Im_;
+    Re_  = complex.Re_;
+    Im_  = complex.Im_;
 }
 
 
@@ -30,8 +34,8 @@ Complex::Complex(const Complex& complex) {
 
 //implementing mag()
 double Complex::mag() const {
-  double mag = sqrt(pow(Re_,2) + pow(Im_,2));
-  return mag;
+    double mag = sqrt(pow(Re_,2) + pow(Im_,2));
+    return mag;
 }//closing implementation of mag()
 
 
@@ -41,20 +45,20 @@ double Complex::phase() const {
   //I have distinguish the different cases for the definition of the phase
   //Every case that I've not included in these following statement is already included in the definition of the function "atan" di <cmath>
    
-  if(Re_ < 0. && Im_ >= 0.) {
-    double phi = atan(Im_/Re_) + M_PI;
-    return phi*180/M_PI;
+    if(Re_ < 0. && Im_ >= 0.) {
+        double phi = atan(Im_/Re_) + M_PI;
+        return phi*180/M_PI;
       
   }
 
-  else if(Re_ < 0. && Im_ < 0.) {
-    double phi = atan(Im_/Re_) - M_PI;
-    return phi*180/M_PI;
+    else if(Re_ < 0. && Im_ < 0.) {
+        double phi = atan(Im_/Re_) - M_PI;
+        return phi*180/M_PI;
   }
     
-  else {
-      double phi = atan(Im_/Re_);
-      return phi*180/M_PI;
+    else {
+        double phi = atan(Im_/Re_);
+        return phi*180/M_PI;
   }
 
 }// closing the implementation of phase()
@@ -75,6 +79,7 @@ Complex Complex::operator+(const Complex& comp) const {
     
 }//closing the implementation of operator+
 
+
 //implementing operator-
 Complex Complex::operator-(const Complex& comp) const {
     
@@ -87,9 +92,10 @@ Complex Complex::operator-(const Complex& comp) const {
     //result of the sum
     return Complex(Re,Im);
     
-}//closing the implementation of operator+
+}//closing the implementation of operator-
 
-//implementing operator*
+
+//implementing operator* (Complex*Complex)
 Complex Complex::operator*(const Complex& comp) const {
     
     //Real part of the product
@@ -101,7 +107,22 @@ Complex Complex::operator*(const Complex& comp) const {
     //result of the product
     return Complex(Re,Im);
     
-}//closing the implementation of operator*
+}//closing the implementation of operator* (Complex * Complex)
+
+//implementing operator* (Complex*double)
+Complex Complex::operator*(const double& comp) const{
+    
+    //Real part of the product
+    double Re = Re_*comp;
+    
+    //Imaginary part of the product
+    double Im = Im_*comp;
+    
+    //result of the product
+    return Complex(Re,Im);
+    
+}//closing the implementation of operator* (Complex * double)
+
 
 //implementing operator/
 Complex Complex::operator/(const Complex& comp) const {
@@ -117,3 +138,20 @@ Complex Complex::operator/(const Complex& comp) const {
     
 }//closing the implementation of operator/
 
+
+//Implementing operator =
+const Complex& Complex::operator=(const Complex& comp){
+    
+    Re_ = comp.Re_;
+    Im_ = comp.Im_;
+    
+    return *this;
+}//closing the implementation of operator =
+
+
+//Global function used to define the product double*Complex
+Complex operator*(const double& doub, const Complex& comp)  {
+    
+    return comp.operator*(doub);
+    
+}//Closing the Global function for *
