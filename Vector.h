@@ -58,10 +58,27 @@ public:
 
 	double angle() const;
 
+	//-------------------------------------------------------
 
+	//Operator + (Vector+Vector)
 
+	Vector operator+(const Vector& vect) const;
 
+	//Operator - (Vector-Vector)
 
+	Vector operator-(const Vector& vect) const;
+
+	//Operator * (Vector*double) 
+	
+	Vector operator*(const double& vect) const;
+
+	//Operator / (Vector/double)
+
+	Vector operator/(const double& vect) const;
+
+	//Operator =
+
+	const Vector& operator=(const Vector& vect);
 
 
 
