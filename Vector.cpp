@@ -66,7 +66,12 @@ double Vector::theta() const {
 
 //implementing SCALAR PRODUCT
 
-//double Vector::scalarProduct() const {
+double Vector::scalarProduct(const Vector& vect) const {
+
+    //Product of the two 1° elements
+    double Scal = x_ * vect.x_ + y_ * vect.y_ + z_ * vect.z_;
+    
+    return Scal;
 
 }
 
