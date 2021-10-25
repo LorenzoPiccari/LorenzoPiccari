@@ -62,11 +62,11 @@ public:
 
     //Function: SCALAR RPODUCT
 
-    double scalarProduct() const;
-
+    double scalarProduct(const Vector& vect) const;
+    
     //Function: VECTOR PRODUCT
 
-    double vectorProduct() const;
+    Vector vectorProduct(const Vector & vect) const;
 
     //Function: ANGLE
 
