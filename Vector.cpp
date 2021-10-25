@@ -7,6 +7,8 @@
 
 //constructors
 
+//-----------------------------------------------------------------------------------------------
+
 //destructor
 
 Vector::~Vector() {
@@ -17,7 +19,6 @@ Vector::~Vector() {
 
 //-----------------------------------------------------------------------------------------------
 
-
 //implementing mag()
 
 double Vector::mag() const {
@@ -26,6 +27,7 @@ double Vector::mag() const {
     return mag;
 }
 
+//-----------------------------------------------------------------------------------------------
 //x = mag*sin(phi)*cos(theta)
 //y = mag * sin(phi) * sin(theta)
 //z = mag * cos(phi)
@@ -36,7 +38,7 @@ double Vector::mag() const {
 double Vector::phi() const {
 
     double r = sqrt(pow(x_, 2) + pow(y_, 2) + pow(z_, 2));
-    double phi = r * cos(z_ / r);
+    double phi = acos(z_ / r);
 }
 
 double Vector::theta() const {
@@ -52,4 +54,15 @@ double Vector::theta() const {
 
     //double scalarProduct
 
-//}
+//---------------------------------------------------------------------------
+
+//overloading of <<
+std::ostream& operator<<(std::ostream& os, const Vector& vec) {
+    
+    using namespace std;
+    os<<"( "<<vec.x_<<" , "<<vec.y_<<" , "<<vec.z_<<" )";
+    return os;
+    
+}
+//---------------------------------------------------------------------------
+
