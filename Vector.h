@@ -93,7 +93,13 @@ public:
     //Operator =
 
     const Vector& operator=(const Vector& vect);
+    
+    //---------------------------------------------------------------------------
 
+    //overloading << as a friend global function
+    friend std::ostream& operator<<(std::ostream& os, const Vector& vec);
+    
+    //---------------------------------------------------------------------------
 
 
 
