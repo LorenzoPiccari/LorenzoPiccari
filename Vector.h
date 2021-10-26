@@ -1,28 +1,51 @@
 //VECTOR.H
 
+
 #ifndef Vector_h
 #define Vector_h
-
 #include <cmath>
+#include <iostream>
 
 class Vector {
 
 public:
     
-    //Constructors
-    //Vector();
-    //Vector(const Vector& vector);
+    //copy constructor
+    Vector(const Vector& vect){
+        
+        x_ = vect.x_;
+        y_ = vect.y_;
+        z_ = vect.z_;
+        
+    }; //No need to define the copy constructor as private because it is copy of another Vector which will already have been created using the methods for spherical and cartesian coordinates
     
-    //public methods that are used to call the private regular constructor
+    //public methods that are used to call the private constructors
     
-    //Spherical coordinates
+    //SPHERICAL coordinates
+    
+    //regular constructor
     static Vector Spherical(double mag, double theta, double phi) {
-        return Vector(mag*cos(theta)*cos(phi), mag*sin(theta)*sin(phi), mag*cos(phi));
+        double THET = theta*M_PI/180;
+        double PH = phi*M_PI/180;
+        return Vector(mag*cos(THET)*sin(PH), mag*sin(THET)*sin(PH), mag*cos(PH));
     }
     
-    //Cartesian cordinates
+    //null constructor
+    static Vector Spherical() {
+        return Vector();
+    }
+    
+    
+    //CARTESIAN cordinates
+    
+    //regular constructor
     static Vector Cartesian(double x1, double x2, double x3) {
         return Vector(x1,x2,x3);
+    }
+    
+    //null constructor
+    static Vector Cartesian() {
+        return Vector();
     }
     
     //---------------------------------------------------------------------------
@@ -69,6 +92,7 @@ public:
     Vector vectorProduct(const Vector & vect) const;
 
     //Function: ANGLE
+    //Indizio: lui nel testo dell'esercizio la chiama solo "function" e non "member function"
 
     double angle() const;
 
@@ -102,17 +126,22 @@ public:
     //---------------------------------------------------------------------------
 
 
-
 private:
     double x_,y_,z_;
     
     //regular constructor
     Vector(double x, double y, double z){
-        x = x_;
-        y = y_;
-        z = z_;
+        x_ = x;
+        y_ = y;
+        z_ = z;
     };
     
+    //null constructor
+    Vector(){
+        x_ = 0.;
+        y_ = 0.;
+        z_ = 0.;
+    };
     
     
     
