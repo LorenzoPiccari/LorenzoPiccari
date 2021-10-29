@@ -1,8 +1,8 @@
 //VECTOR.H
 
 
-#ifndef Vector_h
-#define Vector_h
+#ifndef Vector_hpp
+#define Vector_hpp
 #include <cmath>
 #include <iostream>
 
@@ -71,59 +71,71 @@ public:
     //---------------------------------------------------------------------------
     
    
-    //Function: MAGNITUDE
+    //Function mag()
 
     double mag() const;
-
-    //Function: THETA
-
-    double theta() const;
-
-    //Function: PHI
+    
+    //---------------------------------------------------------------------------
+    
+    //Function phi()
 
     double phi() const;
+    
+    //---------------------------------------------------------------------------
+    
+    //Function theta()
 
-    //Function: SCALAR RPODUCT
+    double theta() const;
+    
+    //---------------------------------------------------------------------------
+
+    //Function: SCALAR PRODUCT
 
     double scalarProduct(const Vector& vect) const;
+
+    //---------------------------------------------------------------------------
     
     //Function: VECTOR PRODUCT
 
-    Vector vectorProduct(const Vector & vect) const;
-
-    //Function: ANGLE
-    //Indizio: lui nel testo dell'esercizio la chiama solo "function" e non "member function"
-
-    double angle() const;
-
-    //-------------------------------------------------------
+    Vector vectorProduct(const Vector& vect) const;
+    
+    //---------------------------------------------------------------------------
 
     //Operator + (Vector+Vector)
 
     Vector operator+(const Vector& vect) const;
 
+    //---------------------------------------------------------------------------
+    
     //Operator - (Vector-Vector)
 
     Vector operator-(const Vector& vect) const;
-
-    //Operator * (Vector*double)
     
-    Vector operator*(const double& vect) const;
-
-    //Operator / (Vector/double)
-
-    Vector operator/(const double& vect) const;
-
+    //---------------------------------------------------------------------------
+    
     //Operator =
-
+    
     const Vector& operator=(const Vector& vect);
     
     //---------------------------------------------------------------------------
 
+    //Operator * (Vector*double)
+    
+    Vector operator*(const double& doub) const;
+    
+    //---------------------------------------------------------------------------
+
+    //Operator / (Vector/double)
+
+    Vector operator/(const double& doub) const;
+
+    //---------------------------------------------------------------------------
+    
     //overloading << as a friend global function
     friend std::ostream& operator<<(std::ostream& os, const Vector& vec);
     
     //---------------------------------------------------------------------------
+
 
 
 private:
@@ -149,6 +161,17 @@ private:
 
 //---------------------------------------------------------------------------
 
-//global functions
+//GLOBAL FUNCTIONS
 
-#endif /* Vector_h */
+//Function angle()
+
+double angle(const Vector& vec1, const Vector& vec2 );
+
+//---------------------------------------------------------------------------
+
+//Global function used to define the product double*Vector
+Vector operator*(const double& doub, const Vector& vect);
+
+//---------------------------------------------------------------------------
+
+#endif /* Vector_hpp */
