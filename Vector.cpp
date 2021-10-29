@@ -1,18 +1,6 @@
-
-//implementation file of class Vector
-
 #include "Vector.h"
 #include <iostream>
 #include <cmath>
-//#define PI 3.14159265
-
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-//ATTENZIONE: Se M_PI da errore scrivi scommenta la scritta #define PI 3.   e cambia tutti gli M_PI in solo PI
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
 
 //constructors have been already implemented in the .h
 
@@ -36,6 +24,7 @@ double Vector::mag() const {
 
     double mag = sqrt(pow(x_, 2) + pow(y_, 2) + pow(z_, 2));
     return mag;
+    
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -88,10 +77,81 @@ double Vector::scalarProduct(const Vector& vect) const {
 
 }
 
+//---------------------------------------------------------------------------
+
+//implementing VECTOR PRODUCT
+
+Vector Vector::vectorProduct(const Vector& vect) const {
+
+    //First component of the product
+    double X = y_ * vect.z_ - z_ * vect.y_;
+    
+    //Second component of the product
+    double Y = z_ * vect.x_ - x_ * vect.z_;
+    
+    //First component of the product
+    double Z = x_ * vect.y_ - y_ * vect.x_;
+    
+    Vector V(X,Y,Z);
+    
+    return V;
+
+}
+
+//---------------------------------------------------------------------------
+
+//Implementing operator +
+Vector Vector::operator+(const Vector& vect) const {
+    double X = x_ + vect.x();
+    double Y = y_ + vect.y();
+    double Z = z_ + vect.z();
+    return Vector(X,Y,Z);
+}
+
+//---------------------------------------------------------------------------
+
+//Implementing operator -
+Vector Vector::operator-(const Vector& vect) const {
+    double X = x_ - vect.x_;
+    double Y = y_ - vect.y_;
+    double Z = z_ - vect.z_;
+    return Vector(X,Y,Z);
+}
+
+//---------------------------------------------------------------------------
+
+//Implementing operator =
+const Vector& Vector::operator=(const Vector& vect) {
+    x_ = vect.x_;
+    y_ = vect.y_;
+    z_ = vect.z_;
+    return *this;
+}
+
+//---------------------------------------------------------------------------
+
+//Implementing operator * (vector*double)
+Vector Vector::operator*(const double& doub) const {
+    double X = x_ * doub;
+    double Y = y_ * doub;
+    double Z = z_ * doub;
+    return Vector(X,Y,Z);
+}
+
+//---------------------------------------------------------------------------
+
+//Implementing operator / (vector/double)
+Vector Vector::operator/(const double& doub) const {
+    double X = x_ / doub;
+    double Y = y_ / doub;
+    double Z = z_ / doub;
+    return Vector(X,Y,Z);
+}
 
 //---------------------------------------------------------------------------
 
 //overloading of <<
+
 std::ostream& operator<<(std::ostream& os, const Vector& vec) {
     
     using namespace std;
@@ -99,5 +159,27 @@ std::ostream& operator<<(std::ostream& os, const Vector& vec) {
     return os;
     
 }
+
 //---------------------------------------------------------------------------
 
+//GLOBAL FUNCTIONS
+
+//implementing the function angle():
+
+double angle(const Vector& vec1, const Vector& vec2) {
+    
+    double ang;
+    double A = vec1.scalarProduct(vec2)/(vec1.mag()*vec2.mag());
+    ang = acos(A);
+    
+    return ang*180/M_PI;
+}
+
+//---------------------------------------------------------------------------
+
+//Global function used to define the product double*Vector
+Vector operator*(const double& doub, const Vector& vect) {
+    return vect.operator*(doub);
+}
+
+//---------------------------------------------------------------------------
