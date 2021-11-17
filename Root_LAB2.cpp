@@ -1,6 +1,7 @@
 //
-//  main.cpp
 //  LAB_2
+//
+//  Generation of the 10 000 events
 //
 //  Created by Lorenzo Piccari on 12/11/21.
 //
@@ -19,18 +20,16 @@ int main(int argc, const char * argv[]) {
     
 //---------------------------------------------------------------------------------------------------------------------------------------------------
     
-    // Open TFile for output
-    TString rootfname("./lab2.root");
-    // Overwite output file if it already exists
-    TFile rfile(rootfname, "RECREATE");
-    // Open the ROOT file and make sure the file was opened successfully.
-    // Typical cause for failure are: 1) wrong path, 2) no write privilege in the directory that is used
-      
-    if( !rfile.IsOpen() ) {   //So there is a method in TFile that states if the file is open or closed (NOTE THAT: in the statement there is the "!", so I'm                            negating the result of the statement
+    // ==== Store data in a TTree
+    // Open a root file
+    TString rootfname("./Lab_2.root");
+    TFile* orootfile = new TFile( rootfname, "RECREATE");
+    if( !orootfile->IsOpen() ) {
       std::cout << "problems creating root file. existing... " << std::endl;
       exit(-1);
     }
-    std::cout << "storing output in root file " << rootfname << std::endl; //This is what is couted if instead the file is actually open
+    std::cout << "storing output in root file " << rootfname << std::endl;
+
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
     
@@ -88,7 +87,6 @@ int main(int argc, const char * argv[]) {
         //generating the random vector for p
         gen->Sphere(px,py,pz,p);
         
-        
         //generating the random vector for K
         gen->Sphere(kx,ky,kz,p);
         
@@ -100,22 +98,21 @@ int main(int argc, const char * argv[]) {
         
     }
     
+    // Finally, actually store tree in file on disk
+    tree->Write();
+
+    // Print some info about the tree
+    tree->Print();
+    
     //cout<<"( "<<x<<" , "<<y<<" , "<<z<<" )"<<endl;
     
-    
-    //generare i vettori 3d con TRandom::Sphere
-    
-    //Trovare il modo di mettere i vettori 3d dentro i 4vettori del pione e del K
+    // Critical to close the file!
+    orootfile->Close();
+ 
+    // ==== Done storing data in a TTree
 
-    //Fare cose con TLorentzVector
-    
     delete gen;
-    
-    
-
-    
-    
-    
-    
+    delete orootfile;
+   
     return 0;
 }
