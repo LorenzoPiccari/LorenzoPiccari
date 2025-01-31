@@ -1,5 +1,4 @@
 - 👋 Hi, I’m @LorenzoPiccari
-- 👀 I’m interested in Theoretical physics
 - 🌱 I’m currently working on Gravitational waves data analysis
 - 📫 How to reach me: lorenzo.piccari@uniroma1.it
 
